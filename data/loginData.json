@@ -1,0 +1,11 @@
+{
+    "login": {
+        "userNameValid": "admin",
+        "passwordValid": "admin",
+        "userNameInvalid":"invalid",
+        "passwordInvalid":"invalid",
+        "emptyMessage":"Please fill out Username and Password.",
+        "invalidPasswordMessage":"Wrong password.",
+        "invalidUserMessage":"User does not exist."
+    }
+}
