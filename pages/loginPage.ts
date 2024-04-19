@@ -8,6 +8,7 @@ export class LoginPage extends BasePage {
     private passwordInput: Locator;
     private confirmButton: Locator;
     private nameOfUser: Locator;
+    private logOutLink: Locator
 
 
     constructor(page: Page) {
@@ -17,6 +18,7 @@ export class LoginPage extends BasePage {
         this.passwordInput = page.locator("input[id='loginpassword']");
         this.confirmButton = page.locator("button[type='button']", { hasText: 'Log in' });
         this.nameOfUser = this.page.locator(`text=Welcome ${data.login.userNameValid}`);
+        this.logOutLink = page.locator("a[id='logout2']");
 
     }
 
@@ -67,8 +69,9 @@ export class LoginPage extends BasePage {
         await this.userNameInput.fill(data.login.userNameValid);
         await this.passwordInput.fill(data.login.passwordValid);
         await this.confirmButton.click();
-        await this.page.waitForResponse(request => request.url().includes('/login') && request.status() === 200)
-        await expect(this.nameOfUser).toBeVisible();
+        await expect(this.logOutLink).toBeVisible();
+        await this.logOutLink.click();
+        await expect(this.logInLink).toBeVisible();
 
     }
 

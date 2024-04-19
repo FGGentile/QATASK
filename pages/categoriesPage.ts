@@ -1,8 +1,14 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect, Locator } from '@playwright/test';
 import * as data from '../data/categoriesData.json';
 import { BasePage } from './basePage'
 
 export class CategoriesPage extends BasePage {
+    private productLink: Locator;
+
+    constructor(page: Page) {
+        super(page);
+        this.productLink = this.page.locator("a[href*='prod.html?idp']");
+    }
 
     async verifyCategories(): Promise<void> {
 
@@ -16,12 +22,7 @@ export class CategoriesPage extends BasePage {
         await this.page.click(`a:has-text("${categoryName}")`);
     }
 
-    async clickRandomProduct(): Promise<void> {
-        await this.page.waitForSelector('a.hrefch');
-        const productElements = await this.page.$$(`a.hrefch`);
-
-        const randomIndex = Math.floor(Math.random() * productElements.length);
-
-        await productElements[randomIndex].click();
+    async clickAProduct(): Promise<void> {
+        await this.productLink.first().click();
     }
 }
